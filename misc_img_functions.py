@@ -192,31 +192,6 @@ def bitwise_not(img_path1):
     return not_image
 
 
-def object_classification(img_path):
-    # Load the pre-trained model and labels
-    net = cv2.dnn.readNetFromCaffe('/Users/devanshmishra/Desktop/Top of the food chain/Devansh/UCLA/Internship/Tata iQ/Basics/model/deploy.prototxt', '/Users/devanshmishra/Desktop/Top of the food chain/Devansh/UCLA/Internship/Tata iQ/Basics/model/.bvlc_googlenet.caffemodel.icloud')
-    with open('/Users/devanshmishra/Desktop/Top of the food chain/Devansh/UCLA/Internship/Tata iQ/Basics/model/synset_words.txt') as f:
-        labels = f.read().strip().split("\n")
-
-    # Read the image
-    image = cv2.imread(img_path)
-
-    # Prepare the image for classification
-    blob = cv2.dnn.blobFromImage(image, 1, (224, 224), (104, 117, 123))
-    net.setInput(blob)
-    preds = net.forward()
-
-    # Get the highest scoring class
-    idx = np.argmax(preds[0])
-    label = labels[idx]
-
-    # Display the result
-    cv2.putText(image, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    cv2.imshow('Classification', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-
 def template_match(img_path, template_path):
     # Read the main image and the template image
     image = cv2.imread(img_path)
